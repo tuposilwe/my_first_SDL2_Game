@@ -1,9 +1,15 @@
 #include <SDL.h>
+#include<iostream>
+
+using namespace std;
 
 int main(int argc, char* argv[])
 {
 	// sdl creation
-	SDL_Init(SDL_INIT_VIDEO);
+	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+		cout << "SDL Initialization failed!";
+		return 1;
+	}
 
 	// window creation
 
@@ -16,6 +22,14 @@ int main(int argc, char* argv[])
 		SDL_WINDOW_SHOWN
 	);
 
+	if (!window) {
+		cout << "Error in creating the window";
+		SDL_Quit();
+
+		return 1;
+	}
+
+	cout << "Window created Successfully";
 	// delaying window display
 	SDL_Delay(3000);
 
