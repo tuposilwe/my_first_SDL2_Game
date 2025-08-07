@@ -51,7 +51,13 @@ int main(int argc, char* argv[])
 		cout << "Successfully Created the renderer";
 	}
 
-	SDL_SetRenderDrawColor(renderer,255,0,0,255);
+	SDL_SetRenderDrawColor(renderer,255,192,203,255);
+	// Clearing out the previous Renderer so that it can display the updated Renderer
+
+	SDL_RenderClear(renderer);
+
+	// Display the updated Renderer
+	SDL_RenderPresent(renderer);
 
 
 	// delaying window display
