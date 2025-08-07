@@ -19,8 +19,12 @@ int main(int argc, char* argv[])
 		SDL_WINDOWPOS_CENTERED,
 		640,
 		480,
-		SDL_WINDOW_SHOWN
+		SDL_WINDOW_RESIZABLE
 	);
+
+	// delaying window display
+	//SDL_Delay(3000);
+	SDL_ShowWindow(window);
 
 	if (!window) {
 		cout << "Error in creating the window";
