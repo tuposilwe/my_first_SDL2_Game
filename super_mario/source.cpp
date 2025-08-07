@@ -24,16 +24,34 @@ int main(int argc, char* argv[])
 
 	// delaying window display
 	//SDL_Delay(3000);
-	SDL_ShowWindow(window);
+	//SDL_ShowWindow(window);
 
 	if (!window) {
-		cout << "Error in creating the window";
+		cout << "failed to create the window";
 		SDL_Quit();
 
 		return 1;
 	}
 
-	cout << "Window created Successfully";
+	cout << "Window created Successfully"<< "\n";
+
+	SDL_Renderer* renderer = SDL_CreateRenderer(
+		window,
+		-1,
+		SDL_RENDERER_ACCELERATED);
+
+	if (!renderer) {
+		cout << "Failed to create the renderer";
+		SDL_DestroyWindow(window);
+		SDL_Quit();
+
+		return 1;
+	}
+	else {
+		cout << "Successfully Created the renderer";
+	}
+
+
 	// delaying window display
 	SDL_Delay(3000);
 
