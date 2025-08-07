@@ -2,7 +2,10 @@
 
 int main(int argc, char* argv[])
 {
-	SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Hello world", "successful", NULL);
+	SDL_Init(SDL_INIT_VIDEO);
+
+	SDL_Quit();
+
 	return 0;
 }
 
