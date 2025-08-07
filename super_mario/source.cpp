@@ -51,6 +51,8 @@ int main(int argc, char* argv[])
 		cout << "Successfully Created the renderer";
 	}
 
+	SDL_SetRenderDrawColor(renderer,255,0,0,255);
+
 
 	// delaying window display
 	SDL_Delay(3000);
