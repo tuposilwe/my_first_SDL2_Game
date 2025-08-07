@@ -33,6 +33,8 @@ int main(int argc, char* argv[])
 	// delaying window display
 	SDL_Delay(3000);
 
+	SDL_DestroyWindow(window);
+
 	SDL_Quit();
 
 	return 0;
