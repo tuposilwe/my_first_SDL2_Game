@@ -15,7 +15,6 @@ int main(int argc, char* argv[])
 	IMG_Init(IMG_INIT_PNG);
 
 	// window creation
-
 	SDL_Window* window = SDL_CreateWindow(
 		"SDL Window",
 		SDL_WINDOWPOS_CENTERED,
@@ -73,6 +72,10 @@ int main(int argc, char* argv[])
 	 
 	// Clearing out the previous Renderer so that it can display the updated Renderer
 	SDL_RenderClear(renderer);
+
+
+	SDL_RenderCopy(renderer, texture, NULL, NULL); // Blit texture onto the SDL Screen
+
 
 	/*SDL_SetRenderDrawColor(renderer,255,0,0,255);*/
 
