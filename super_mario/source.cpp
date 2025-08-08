@@ -59,17 +59,26 @@ int main(int argc, char* argv[])
 	SDL_SetRenderDrawColor(renderer,255,0,0,255);
 
 
-	for (int i = 100; i < 400; i++)
+	/*for (int i = 100; i < 400; i++)
 	{
 		SDL_RenderDrawPoint(renderer, 100,i);
 		SDL_RenderDrawPoint(renderer, 200, i);
-	}
+	}*/
+
+
+	SDL_RenderDrawLine(renderer,50,50,300,50);
+
+	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+
+	SDL_Rect rect = { 100,100,200,150 };
+
+	SDL_RenderDrawRect(renderer,&rect);
 
 	// Display the updated Renderer 
 	SDL_RenderPresent(renderer);
 	 
 
-	// delaying window display
+	// delaying window display 
 	SDL_Delay(3000);
 
 	SDL_DestroyRenderer(renderer);
