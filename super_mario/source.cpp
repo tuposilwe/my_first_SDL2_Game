@@ -73,8 +73,9 @@ int main(int argc, char* argv[])
 	// Clearing out the previous Renderer so that it can display the updated Renderer
 	SDL_RenderClear(renderer);
 
+	SDL_Rect dstRect = { 200,300,150,120 };
 
-	SDL_RenderCopy(renderer, texture, NULL, NULL); // Blit texture onto the SDL Screen
+	SDL_RenderCopy(renderer, texture, NULL, &dstRect); // Blit texture onto the SDL Screen
 
 
 	/*SDL_SetRenderDrawColor(renderer,255,0,0,255);*/
@@ -100,7 +101,7 @@ int main(int argc, char* argv[])
 	 
 
 	// delaying window display 
-	SDL_Delay(3000);
+	SDL_Delay(8000);
 
 	SDL_DestroyRenderer(renderer);
 
