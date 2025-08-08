@@ -1,5 +1,6 @@
 #include <SDL.h>
 #include<iostream>
+#include<SDL_image.h>
 
 using namespace std;
 
@@ -10,6 +11,8 @@ int main(int argc, char* argv[])
 		cout << "SDL Initialization failed!";
 		return 1;
 	}
+
+	IMG_Init(IMG_INIT_PNG);
 
 	// window creation
 
@@ -51,12 +54,27 @@ int main(int argc, char* argv[])
 		cout << "Successfully Created the renderer";
 	}
 
-	SDL_SetRenderDrawColor(renderer,255,192,203,255);
+	SDL_Surface* surface = IMG_Load("enemy.png");
 
+	if (!surface) {
+		cout << "Image Loading Failed";
+		return 1;
+	}
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer,surface);
+	SDL_FreeSurface(surface);
+
+
+	if (!texture) {
+		cout << "Texture Creation Failed";
+		return 1;
+	}
+
+	SDL_SetRenderDrawColor(renderer,255,192,203,255);
+	 
 	// Clearing out the previous Renderer so that it can display the updated Renderer
 	SDL_RenderClear(renderer);
 
-	SDL_SetRenderDrawColor(renderer,255,0,0,255);
+	/*SDL_SetRenderDrawColor(renderer,255,0,0,255);*/
 
 
 	/*for (int i = 100; i < 400; i++)
@@ -66,13 +84,13 @@ int main(int argc, char* argv[])
 	}*/
 
 
-	SDL_RenderDrawLine(renderer,50,50,300,50);
+	/*SDL_RenderDrawLine(renderer,50,50,300,50);
 
-	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);*/
 
-	SDL_Rect rect = { 100,100,200,150 };
+	//SDL_Rect rect = { 100,100,200,150 };
 
-	SDL_RenderDrawRect(renderer,&rect);
+	//SDL_RenderDrawRect(renderer,&rect);
 
 	// Display the updated Renderer 
 	SDL_RenderPresent(renderer);
