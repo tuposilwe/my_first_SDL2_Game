@@ -11,8 +11,13 @@ int main(int argc, char* argv[])
 		cout << "SDL Initialization failed!";
 		return 1;
 	}
+	int imgFlags = IMG_INIT_PNG | IMG_INIT_JPG | IMG_INIT_TIF | IMG_INIT_WEBP;
 
-	IMG_Init(IMG_INIT_PNG);
+	if (IMG_Init(imgFlags) && imgFlags != imgFlags) {
+		cout << "SDL Image could not be initialized";
+		SDL_Quit();
+		return 1;
+	};
 
 	// window creation
 	SDL_Window* window = SDL_CreateWindow(
