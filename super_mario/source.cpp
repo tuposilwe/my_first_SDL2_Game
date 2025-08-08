@@ -108,10 +108,14 @@ int main(int argc, char* argv[])
 	// delaying window display 
 	SDL_Delay(8000);
 
+	// Cleaning things up
+
+	SDL_DestroyTexture(texture);
+
 	SDL_DestroyRenderer(renderer);
 
 	SDL_DestroyWindow(window);
-
+	IMG_Quit();
 	SDL_Quit();
 
 	return 0;
