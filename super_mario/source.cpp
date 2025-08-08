@@ -52,13 +52,22 @@ int main(int argc, char* argv[])
 	}
 
 	SDL_SetRenderDrawColor(renderer,255,192,203,255);
-	// Clearing out the previous Renderer so that it can display the updated Renderer
 
+	// Clearing out the previous Renderer so that it can display the updated Renderer
 	SDL_RenderClear(renderer);
 
-	// Display the updated Renderer
-	SDL_RenderPresent(renderer);
+	SDL_SetRenderDrawColor(renderer,255,0,0,255);
 
+
+	for (int i = 100; i < 400; i++)
+	{
+		SDL_RenderDrawPoint(renderer, 100,i);
+		SDL_RenderDrawPoint(renderer, 200, i);
+	}
+
+	// Display the updated Renderer 
+	SDL_RenderPresent(renderer);
+	 
 
 	// delaying window display
 	SDL_Delay(3000);
