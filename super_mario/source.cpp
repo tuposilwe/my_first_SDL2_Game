@@ -74,6 +74,7 @@ int main(int argc, char* argv[])
 
 	cout << "Window created Successfully"<< "\n";
 
+	// Create a renderer
 	SDL_Renderer* renderer = SDL_CreateRenderer(
 		window,
 		-1,
@@ -149,38 +150,83 @@ int main(int argc, char* argv[])
 	SDL_Texture* bkTexture = SDL_CreateTextureFromSurface(renderer, bk);
 	bricktexture= SDL_CreateTextureFromSurface(renderer, brick);
 
-	SDL_RenderCopy(renderer, bkTexture, NULL, &bkrect);
-	SDL_RenderCopy(renderer, ballTexture, NULL, &ballrect);
-	SDL_RenderCopy(renderer,skateTexture, NULL, &skaterect);
+	//SDL_RenderCopy(renderer, bkTexture, NULL, &bkrect);
+	//SDL_RenderCopy(renderer, ballTexture, NULL, &ballrect);
+	//SDL_RenderCopy(renderer,skateTexture, NULL, &skaterect);
 
-	InitializeBrick();
+	//InitializeBrick();
 
-	for (int i = 0; i < numRows; i++)
-	{
-		for (int j = 0; j < numCols; j++) {
-			SDL_RenderCopy(renderer, bricktexture, NULL, &brickrect[i][j]);
-		}
-	}
+	//for (int i = 0; i < numRows; i++)
+	//{
+	//	for (int j = 0; j < numCols; j++) {
+	//		SDL_RenderCopy(renderer, bricktexture, NULL, &brickrect[i][j]);
+	//	}
+	//}
 
-	// Display the updated Renderer 
-	SDL_RenderPresent(renderer);
+	//// Display the updated Renderer 
+	//SDL_RenderPresent(renderer);
 
-	while (!quit) {
+	/*while (!quit) {
 		EventHandler();
-	}
+	}*/
 	 
 
 	// delaying window display 
 	//SDL_Delay(8000);
 
-	// Cleaning things up
 
 	//SDL_DestroyTexture(texture);
 
+	SDL_Rect rect = {350,250,80,50};
+	int rectSpeed = 2; // Speed of the rectangle movement
+	int moveDistance = 300; // total distance that the rectangle needs to cover
+
+	int movedDistance = 0; // Keep track of the distance covered by rect
+	bool moveRight = true;
+
+	// Game Loop
+	while (!quit) {
+		EventHandler();
+
+		//Clear the screen
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+		SDL_RenderClear(renderer);
+
+		if (moveRight) {
+			rect.x += rectSpeed;
+			movedDistance += rectSpeed;
+
+			if (movedDistance >= moveDistance) {
+				moveRight = false;
+			}
+		}
+		else
+		{
+			rect.x -= rectSpeed;
+			movedDistance -= rectSpeed;
+
+			if (movedDistance <= 0) {
+				moveRight = true;
+			}
+		}
+
+		// Draw Rectangle
+		SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+		SDL_RenderFillRect(renderer, &rect);
+
+		//Present the updated Renderer
+		SDL_RenderPresent(renderer);
+
+		// Delaying the frame rate control
+		SDL_Delay(16);
+	}
+
+
+	// Cleaning resources
 	SDL_DestroyRenderer(renderer);
 
 	SDL_DestroyWindow(window);
-	IMG_Quit();
+	IMG_Quit(); 
 	SDL_Quit();
 
 	return 0;
