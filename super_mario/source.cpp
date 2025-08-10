@@ -34,6 +34,16 @@ void EventHandler() {
 	if (event.type == SDL_QUIT) {
 		quit = true;
 	}
+
+	if (event.type == SDL_MOUSEBUTTONDOWN) {
+		if (event.button.button == SDL_BUTTON_LEFT) {
+			cout << "Left Mouse Button Pressed- Detection Successful..."<<endl;
+		}
+		else if (event.button.button == SDL_BUTTON_RIGHT)
+		{
+			cout << "Right Mouse Button Pressed- Detection Successful..."<<endl;
+		}
+	}
 }
 
 int main(int argc, char* argv[])
