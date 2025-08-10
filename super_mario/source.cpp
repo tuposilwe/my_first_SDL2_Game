@@ -37,20 +37,30 @@ void EventHandler() {
 
 	if (event.type == SDL_MOUSEBUTTONDOWN) {
 		if (event.button.button == SDL_BUTTON_LEFT) {
-			cout << "Left Mouse Button Pressed- Detection Successful..."<<endl;
+			cout << "Left Mouse Button Pressed - Detection Successful..."<<endl;
 		}
-		else if (event.button.button == SDL_BUTTON_RIGHT)
+
+
+		if (event.button.clicks == 2) {
+			cout << "Double CLicked- Detection Successful..." << endl;
+		}
+		
+	}
+
+	if (event.type == SDL_MOUSEBUTTONUP) {
+		if (event.button.button == SDL_BUTTON_RIGHT)
 		{
-			cout << "Right Mouse Button Pressed- Detection Successful..."<<endl;
+			cout << "Right Mouse Button Released - Detection Successful..." << endl;
 		}
 	}
 
-	if (event.type == SDL_MOUSEMOTION) {
+
+	/*if (event.type == SDL_MOUSEMOTION) {
 		int x = event.motion.x;
 		int y = event.motion.y;
 
 		cout << "Mouse moved to: (" << x << " , " << ")" << endl;
-	}
+	}*/
 }
 
 int main(int argc, char* argv[])
