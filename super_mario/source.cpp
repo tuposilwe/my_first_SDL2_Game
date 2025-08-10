@@ -115,15 +115,18 @@ int main(int argc, char* argv[])
 	//SDL_RenderDrawRect(renderer,&rect);
 
 	SDL_Rect ballrect = { 20,30,60,70 };
-
 	SDL_Rect skaterect = { 400,530,100,120 };
+	SDL_Rect bkrect = { 0,0,800,600 };
 
 	SDL_Surface* ball = SDL_LoadBMP("ball.bmp");
 	SDL_Surface* skate = SDL_LoadBMP("Skater.bmp");
+	SDL_Surface* bk = SDL_LoadBMP("bk.bmp");
 
 	SDL_Texture* ballTexture = SDL_CreateTextureFromSurface(renderer, ball);
 	SDL_Texture* skateTexture = SDL_CreateTextureFromSurface(renderer, skate);
+	SDL_Texture* bkTexture = SDL_CreateTextureFromSurface(renderer, bk);
 
+	SDL_RenderCopy(renderer, bkTexture, NULL, &bkrect);
 	SDL_RenderCopy(renderer, ballTexture, NULL, &ballrect);
 	SDL_RenderCopy(renderer,skateTexture, NULL, &skaterect);
 
