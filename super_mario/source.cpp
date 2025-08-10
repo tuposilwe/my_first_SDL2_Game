@@ -44,6 +44,13 @@ void EventHandler() {
 			cout << "Right Mouse Button Pressed- Detection Successful..."<<endl;
 		}
 	}
+
+	if (event.type == SDL_MOUSEMOTION) {
+		int x = event.motion.x;
+		int y = event.motion.y;
+
+		cout << "Mouse moved to: (" << x << " , " << ")" << endl;
+	}
 }
 
 int main(int argc, char* argv[])
