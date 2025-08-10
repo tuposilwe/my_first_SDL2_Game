@@ -7,6 +7,27 @@ using namespace std;
 SDL_Event event;
 bool quit = false;
 
+int brickw = 80;
+int brickh = 35;
+
+SDL_Surface* brick;
+SDL_Texture* bricktexture;
+const int numRows = 3;
+const int numCols = 8;
+
+SDL_Rect brickrect[numRows][numCols];
+
+void InitializeBrick() {
+	for (int i = 0; i < numRows; i++)
+	{
+		for (int j = 0;j < numCols;j++) {
+			brickrect[i][j] = { 50 + j * (brickw + 10),50 + i * (brickh + 10),brickw,brickh }; 
+		}
+	}
+}
+
+
+
 void EventHandler() {
 	SDL_PollEvent(&event);
 
@@ -114,21 +135,32 @@ int main(int argc, char* argv[])
 
 	//SDL_RenderDrawRect(renderer,&rect);
 
-	SDL_Rect ballrect = { 20,30,60,70 };
+	SDL_Rect ballrect = { 20,30,50,50 };
 	SDL_Rect skaterect = { 400,530,100,120 };
 	SDL_Rect bkrect = { 0,0,800,600 };
 
 	SDL_Surface* ball = SDL_LoadBMP("ball.bmp");
 	SDL_Surface* skate = SDL_LoadBMP("Skater.bmp");
 	SDL_Surface* bk = SDL_LoadBMP("bk.bmp");
+	brick = SDL_LoadBMP("brick.bmp");
 
 	SDL_Texture* ballTexture = SDL_CreateTextureFromSurface(renderer, ball);
 	SDL_Texture* skateTexture = SDL_CreateTextureFromSurface(renderer, skate);
 	SDL_Texture* bkTexture = SDL_CreateTextureFromSurface(renderer, bk);
+	bricktexture= SDL_CreateTextureFromSurface(renderer, brick);
 
 	SDL_RenderCopy(renderer, bkTexture, NULL, &bkrect);
 	SDL_RenderCopy(renderer, ballTexture, NULL, &ballrect);
 	SDL_RenderCopy(renderer,skateTexture, NULL, &skaterect);
+
+	InitializeBrick();
+
+	for (int i = 0; i < numRows; i++)
+	{
+		for (int j = 0; j < numCols; j++) {
+			SDL_RenderCopy(renderer, bricktexture, NULL, &brickrect[i][j]);
+		}
+	}
 
 	// Display the updated Renderer 
 	SDL_RenderPresent(renderer);
