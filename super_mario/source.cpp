@@ -4,6 +4,17 @@
 
 using namespace std;
 
+SDL_Event event;
+bool quit = false;
+
+void EventHandler() {
+	SDL_PollEvent(&event);
+
+	if (event.type == SDL_QUIT) {
+		quit = true;
+	}
+}
+
 int main(int argc, char* argv[])
 {
 	// sdl creation
@@ -105,10 +116,14 @@ int main(int argc, char* argv[])
 
 	// Display the updated Renderer 
 	SDL_RenderPresent(renderer);
+
+	while (!quit) {
+		EventHandler();
+	}
 	 
 
 	// delaying window display 
-	SDL_Delay(8000);
+	//SDL_Delay(8000);
 
 	// Cleaning things up
 
