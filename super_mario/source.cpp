@@ -145,7 +145,7 @@ int main(int argc, char* argv[])
 	SDL_Surface* bk = SDL_LoadBMP("bk.bmp");
 	brick = SDL_LoadBMP("brick.bmp");
 
-	SDL_Texture* ballTexture = SDL_CreateTextureFromSurface(renderer, ball);
+	//SDL_Texture* ballTexture = SDL_CreateTextureFromSurface(renderer, ball);
 	SDL_Texture* skateTexture = SDL_CreateTextureFromSurface(renderer, skate);
 	SDL_Texture* bkTexture = SDL_CreateTextureFromSurface(renderer, bk);
 	bricktexture= SDL_CreateTextureFromSurface(renderer, brick);
@@ -185,42 +185,105 @@ int main(int argc, char* argv[])
 	bool moveRight = true;
 
 	// Game Loop
-	while (!quit) {
-		EventHandler();
+	//while (!quit) {
+	//	EventHandler();
 
-		//Clear the screen
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	//	//Clear the screen
+	//	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	//	SDL_RenderClear(renderer);
+
+	//	if (moveRight) {
+	//		rect.x += rectSpeed;
+	//		movedDistance += rectSpeed;
+
+	//		if (movedDistance >= moveDistance) {
+	//			moveRight = false;
+	//		}
+	//	}
+	//	else
+	//	{
+	//		rect.x -= rectSpeed;
+	//		movedDistance -= rectSpeed;
+
+	//		if (movedDistance <= 0) {
+	//			moveRight = true;
+	//		}
+	//	}
+
+	//	// Draw Rectangle
+	//	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+	//	SDL_RenderFillRect(renderer, &rect);
+
+	//	//Present the updated Renderer
+	//	SDL_RenderPresent(renderer);
+
+	//	// Delaying the frame rate control
+	//	SDL_Delay(16);
+	//}
+
+
+	// Load ball image as texture
+	SDL_Surface* ballSurface = SDL_LoadBMP("ball.bmp");
+	if (!ballSurface) {
+		cerr << "Failed to load ball image: " << SDL_GetError() << endl;
+		SDL_DestroyRenderer(renderer);
+		SDL_DestroyWindow(window);
+		SDL_Quit();
+		return 1;
+	}
+	SDL_Texture* ballTexture = SDL_CreateTextureFromSurface(renderer, ballSurface);
+	SDL_FreeSurface(ballSurface);
+
+	SDL_Rect ballRect = {400,500,50,50};
+	int speed = 2;
+	int distanceCovered = 0;
+
+	enum Direction
+	{
+		UP,RIGHT,DOWN,LEFT
+	}direction = UP;
+
+
+	// Main game Loop
+	while (!quit) {
+		// Event Handling
+		EventHandler();
+		switch (direction)
+		{
+		case UP:
+			ballRect.y -= speed;
+			break;
+		case RIGHT:
+			ballRect.x += speed;
+			break;
+		case DOWN:
+			ballRect.y += speed;
+			break;
+		case LEFT:
+			ballRect.x -= speed;
+			break;
+		default:
+			break;
+		}
+
+		distanceCovered += speed;
+		if (distanceCovered >= 250) {
+			direction = static_cast<Direction>((direction + 1) % 4);
+			distanceCovered = 0;
+		}
+
+		// Clear the Screen
+		SDL_SetRenderDrawColor(renderer,0, 0, 0, 255);
 		SDL_RenderClear(renderer);
 
-		if (moveRight) {
-			rect.x += rectSpeed;
-			movedDistance += rectSpeed;
+		SDL_RenderCopy(renderer, ballTexture, NULL, &ballRect);
 
-			if (movedDistance >= moveDistance) {
-				moveRight = false;
-			}
-		}
-		else
-		{
-			rect.x -= rectSpeed;
-			movedDistance -= rectSpeed;
-
-			if (movedDistance <= 0) {
-				moveRight = true;
-			}
-		}
-
-		// Draw Rectangle
-		SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-		SDL_RenderFillRect(renderer, &rect);
-
-		//Present the updated Renderer
 		SDL_RenderPresent(renderer);
 
-		// Delaying the frame rate control
-		SDL_Delay(16);
-	}
+		SDL_Delay(16); // 60 Frames Per Second
 
+
+	}
 
 	// Cleaning resources
 	SDL_DestroyRenderer(renderer);
