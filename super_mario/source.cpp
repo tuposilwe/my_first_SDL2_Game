@@ -35,8 +35,8 @@ int main(int argc, char* argv[])
 		"SDL Window",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
-		640,
-		480,
+		800,
+		600,
 		SDL_WINDOW_RESIZABLE
 	);
 
@@ -71,29 +71,29 @@ int main(int argc, char* argv[])
 
 	//SDL_Surface* surface = IMG_Load("enemy.png");
 
-	SDL_Surface* winsurface = SDL_LoadBMP("win.bmp");
+	//SDL_Surface* winsurface = SDL_LoadBMP("win.bmp");
 
-	if (!winsurface) {
-		cout << "Image Loading Failed";
-		return 1;
-	}
-	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer,winsurface);
-	SDL_FreeSurface(winsurface);
+	//if (!winsurface) {
+	//	cout << "Image Loading Failed";
+	//	return 1;
+	//}
+	//SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer,winsurface);
+	//SDL_FreeSurface(winsurface);
 
 
-	if (!texture) {
-		cout << "Texture Creation Failed";
-		return 1;
-	}
+	//if (!texture) {
+	//	cout << "Texture Creation Failed";
+	//	return 1;
+	//}
 
-	SDL_SetRenderDrawColor(renderer,255,192,203,255);
+	//SDL_SetRenderDrawColor(renderer,255,192,203,255);
 	 
 	// Clearing out the previous Renderer so that it can display the updated Renderer
-	SDL_RenderClear(renderer);
+	/*SDL_RenderClear(renderer);
 
 	SDL_Rect dstRect = { 200,300,150,120 };
 
-	SDL_RenderCopy(renderer, texture, NULL, &dstRect); // Blit texture onto the SDL Screen
+	SDL_RenderCopy(renderer, texture, NULL, &dstRect);*/ // Blit texture onto the SDL Screen
 
 
 	/*SDL_SetRenderDrawColor(renderer,255,0,0,255);*/
@@ -114,6 +114,19 @@ int main(int argc, char* argv[])
 
 	//SDL_RenderDrawRect(renderer,&rect);
 
+	SDL_Rect ballrect = { 20,30,60,70 };
+
+	SDL_Rect skaterect = { 400,530,100,120 };
+
+	SDL_Surface* ball = SDL_LoadBMP("ball.bmp");
+	SDL_Surface* skate = SDL_LoadBMP("Skater.bmp");
+
+	SDL_Texture* ballTexture = SDL_CreateTextureFromSurface(renderer, ball);
+	SDL_Texture* skateTexture = SDL_CreateTextureFromSurface(renderer, skate);
+
+	SDL_RenderCopy(renderer, ballTexture, NULL, &ballrect);
+	SDL_RenderCopy(renderer,skateTexture, NULL, &skaterect);
+
 	// Display the updated Renderer 
 	SDL_RenderPresent(renderer);
 
@@ -127,7 +140,7 @@ int main(int argc, char* argv[])
 
 	// Cleaning things up
 
-	SDL_DestroyTexture(texture);
+	//SDL_DestroyTexture(texture);
 
 	SDL_DestroyRenderer(renderer);
 
