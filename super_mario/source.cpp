@@ -102,7 +102,7 @@ void EventHandler() {
 int main(int argc, char* argv[])
 {
 	// sdl creation
-	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
 		cout << "SDL Initialization failed!";
 		return 1;
 	}
