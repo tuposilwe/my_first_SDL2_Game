@@ -7,24 +7,30 @@ using namespace std;
 SDL_Event event;
 bool quit = false;
 
-int brickw = 80;
-int brickh = 35;
+SDL_Rect rect = { 320,240,50,50 };
+int speed = 25;
 
-SDL_Surface* brick;
-SDL_Texture* bricktexture;
-const int numRows = 3;
-const int numCols = 8;
+//int brickw = 80;
+//int brickh = 35;
 
-SDL_Rect brickrect[numRows][numCols];
+//SDL_Surface* brick;
+//SDL_Texture* bricktexture;
+//const int numRows = 3;
+//const int numCols = 8;
+//
+//SDL_Rect brickrect[numRows][numCols];
 
-void InitializeBrick() {
-	for (int i = 0; i < numRows; i++)
-	{
-		for (int j = 0;j < numCols;j++) {
-			brickrect[i][j] = { 50 + j * (brickw + 10),50 + i * (brickh + 10),brickw,brickh }; 
-		}
-	}
-}
+
+
+
+//void InitializeBrick() {
+//	for (int i = 0; i < numRows; i++)
+//	{
+//		for (int j = 0;j < numCols;j++) {
+//			brickrect[i][j] = { 50 + j * (brickw + 10),50 + i * (brickh + 10),brickw,brickh }; 
+//		}
+//	}
+//}
 
 
 
@@ -55,8 +61,25 @@ void EventHandler() {
 	}
 
 	if(event.type == SDL_KEYDOWN) {
-		SDL_Keycode key = event.key.keysym.sym;
-		cout << "Key Pressed Code: " << key <<" " << SDL_GetKeyName(key) << endl;
+
+		if (event.key.keysym.sym == SDLK_UP) {
+			rect.y -= speed;
+		}
+		else if(event.key.keysym.sym == SDLK_DOWN)
+		{
+			rect.y += speed;
+		}
+		else if (event.key.keysym.sym == SDLK_LEFT)
+		{
+			rect.x -= speed;
+		}
+		else if (event.key.keysym.sym == SDLK_RIGHT)
+		{
+			rect.x += speed;
+		}
+
+		/*SDL_Keycode key = event.key.keysym.sym;
+		cout << "Key Pressed Code: " << key <<" " << SDL_GetKeyName(key) << endl;*/
 
 	}
 
@@ -177,12 +200,12 @@ int main(int argc, char* argv[])
 	SDL_Surface* ball = SDL_LoadBMP("ball.bmp");
 	SDL_Surface* skate = SDL_LoadBMP("Skater.bmp");
 	SDL_Surface* bk = SDL_LoadBMP("bk.bmp");
-	brick = SDL_LoadBMP("brick.bmp");
+	/*brick = SDL_LoadBMP("brick.bmp");*/
 
 	//SDL_Texture* ballTexture = SDL_CreateTextureFromSurface(renderer, ball);
 	SDL_Texture* skateTexture = SDL_CreateTextureFromSurface(renderer, skate);
 	SDL_Texture* bkTexture = SDL_CreateTextureFromSurface(renderer, bk);
-	bricktexture= SDL_CreateTextureFromSurface(renderer, brick);
+	//bricktexture= SDL_CreateTextureFromSurface(renderer, brick);
 
 	//SDL_RenderCopy(renderer, bkTexture, NULL, &bkrect);
 	//SDL_RenderCopy(renderer, ballTexture, NULL, &ballrect);
@@ -211,7 +234,7 @@ int main(int argc, char* argv[])
 
 	//SDL_DestroyTexture(texture);
 
-	SDL_Rect rect = {350,250,80,50};
+	/*SDL_Rect rect = {350,250,80,50};*/
 	int rectSpeed = 2; // Speed of the rectangle movement
 	int moveDistance = 300; // total distance that the rectangle needs to cover
 
@@ -282,7 +305,7 @@ int main(int argc, char* argv[])
 	while (!quit) {
 		// Event Handling
 		EventHandler();
-		switch (direction)
+		/*switch (direction)
 		{
 		case UP:
 			ballRect.y -= speed;
@@ -304,17 +327,20 @@ int main(int argc, char* argv[])
 		if (distanceCovered >= 250) {
 			direction = static_cast<Direction>((direction + 1) % 4);
 			distanceCovered = 0;
-		}
+		}*/
 
 		// Clear the Screen
 		SDL_SetRenderDrawColor(renderer,0, 0, 0, 255);
 		SDL_RenderClear(renderer);
 
-		SDL_RenderCopy(renderer, ballTexture, NULL, &ballRect);
+		SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+		SDL_RenderFillRect(renderer, &rect);
+
+		//SDL_RenderCopy(renderer, ballTexture, NULL, &ballRect);
 
 		SDL_RenderPresent(renderer);
 
-		SDL_Delay(16); // 60 Frames Per Second
+		//SDL_Delay(16); // 60 Frames Per Second
 
 
 	}
