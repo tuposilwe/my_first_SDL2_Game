@@ -109,7 +109,7 @@ int main(int argc, char* argv[])
 	}
 
 
-
+	// Opening up an Audio Device
 	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048)<0) {
 		cout << "Failed to Open Audio Setting" << endl;
 		SDL_Quit();
@@ -134,9 +134,21 @@ int main(int argc, char* argv[])
 		SDL_WINDOW_RESIZABLE
 	);
 
+	// Load Audio
+	Mix_Music* music = Mix_LoadMUS("Sim.mp3");
+
+	// Load Short Format Audio
+	Mix_Chunk* music1 = Mix_LoadWAV("snow.wav");
+
+	// Play Audio
+	Mix_PlayMusic(music,-1);// -1 means playing it indefinitely
+
+	// Playing Short Format Audio
+	Mix_PlayChannel(-1, music1, 0);
+
 	// delaying window display
 	//SDL_Delay(3000);
-	//SDL_ShowWindow(window);
+	//SDL_ShowWindow(window); 
 
 	if (!window) {
 		cout << "failed to create the window";
