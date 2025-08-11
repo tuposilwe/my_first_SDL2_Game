@@ -77,13 +77,19 @@ void EventHandler() {
 		{
 			rect.x += speed;
 		}
-
+		
 		/*SDL_Keycode key = event.key.keysym.sym;
 		cout << "Key Pressed Code: " << key <<" " << SDL_GetKeyName(key) << endl;*/
 
 	}
 
+	if (event.type == SDL_KEYUP) {
 
+		if (event.key.keysym.sym == SDLK_ESCAPE)
+		{
+			quit = true;
+		}
+	}
 
 	/*if (event.type == SDL_MOUSEMOTION) {
 		int x = event.motion.x;
