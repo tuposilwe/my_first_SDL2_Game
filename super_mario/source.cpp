@@ -54,6 +54,13 @@ void EventHandler() {
 		}
 	}
 
+	if(event.type == SDL_KEYDOWN) {
+		SDL_Keycode key = event.key.keysym.sym;
+		cout << "Key Pressed Code: " << key <<" " << SDL_GetKeyName(key) << endl;
+
+	}
+
+
 
 	/*if (event.type == SDL_MOUSEMOTION) {
 		int x = event.motion.x;
@@ -115,7 +122,7 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 	else {
-		cout << "Successfully Created the renderer";
+		cout << "Successfully Created the renderer"<<endl;
 	}
 
 	//SDL_Surface* surface = IMG_Load("enemy.png");
