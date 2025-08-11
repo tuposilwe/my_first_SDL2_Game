@@ -374,8 +374,10 @@ int main(int argc, char* argv[])
 	}
 
 	// Cleaning resources
+	Mix_FreeMusic(music);
+	Mix_FreeChunk(music1);
+	Mix_CloseAudio();
 	SDL_DestroyRenderer(renderer);
-
 	SDL_DestroyWindow(window);
 	IMG_Quit(); 
 	SDL_Quit();
