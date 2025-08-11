@@ -1,6 +1,7 @@
 #include <SDL.h>
 #include<iostream>
 #include<SDL_image.h>
+#include<SDL_mixer.h>
 
 using namespace std;
 
@@ -106,6 +107,15 @@ int main(int argc, char* argv[])
 		cout << "SDL Initialization failed!";
 		return 1;
 	}
+
+
+
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048)<0) {
+		cout << "Failed to Open Audio Setting" << endl;
+		SDL_Quit();
+		return 1;
+	}
+
 	/*int imgFlags = IMG_INIT_PNG | IMG_INIT_JPG | IMG_INIT_TIF | IMG_INIT_WEBP;
 
 	if (IMG_Init(imgFlags) && imgFlags != imgFlags) {
